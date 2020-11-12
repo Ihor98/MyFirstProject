@@ -1,0 +1,120 @@
+{
+  "profiles": [
+    {
+      "firstname": "Ihor",
+      "lastname": "Nadiuk",
+      "username": "ihor",
+      "phone": "1234567890",
+      "mail": "jdkfb@mail.ru",
+      "password": "1234567",
+      "check": "1234567",
+      "formAdress": [
+        {
+          "adressType": "Billing Address",
+          "adress": "Mayo",
+          "city": "Lviv",
+          "country": "Ukraine",
+          "postalCode": "12345"
+        },
+        {
+          "adressType": "Home Address",
+          "adress": "Shept",
+          "city": "Drogobych",
+          "country": "Ukraine",
+          "postalCode": "82100"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "firstname": "Vlad",
+      "lastname": "Musiy",
+      "username": "ihor",
+      "phone": "1234567890",
+      "mail": "jdkfb@mail.ru",
+      "password": "1234567",
+      "check": "1234567",
+      "formAdress": [
+        {
+          "adressType": "Billing Address",
+          "adress": "Mayo",
+          "city": "Lviv",
+          "country": "Ukraine",
+          "postalCode": "12345"
+        },
+        {
+          "adressType": "Home Address",
+          "adress": "Shept",
+          "city": "Drogobych",
+          "country": "Ukraine",
+          "postalCode": "82100"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "firstname": "Roman",
+      "lastname": "Gorishniak",
+      "username": "romjek",
+      "phone": "1234567890",
+      "mail": "jdkfb@mail.ru",
+      "password": "1234567",
+      "check": "1234567",
+      "formAdress": [
+        {
+          "adressType": "Billing Address",
+          "adress": "Mayo",
+          "city": "Lviv",
+          "country": "Ukraine",
+          "postalCode": "12345"
+        },
+        {
+          "adressType": "Home Address",
+          "adress": "Shept",
+          "city": "Drogobych",
+          "country": "Ukraine",
+          "postalCode": "82100"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "firstname": "Roman",
+      "lastname": "Romaniv",
+      "username": "romaniv",
+      "phone": "1234567890",
+      "mail": "jdkfb@mail.ru",
+      "password": "1234567",
+      "check": "1234567",
+      "formAdress": [
+        {
+          "adressType": "Billing Address",
+          "adress": "Mayo",
+          "city": "Lviv",
+          "country": "Ukraine",
+          "postalCode": "12345"
+        }
+      ],
+      "id": 4
+    },
+    {
+      "firstname": "Michael",
+      "lastname": "Lub",
+      "username": "mishaa",
+      "phone": "0939876543",
+      "mail": "misha@gmail.com",
+      "password": "1234567",
+      "check": "1234567",
+      "formAdress": [
+        {
+          "adressType": "Home Address",
+          "adress": "Levandivka",
+          "city": "Lviv",
+          "country": "Ukraine",
+          "postalCode": "12908"
+        }
+      ],
+      "id": 5
+    }
+  ]
+}

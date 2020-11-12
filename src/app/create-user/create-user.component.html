@@ -1,0 +1,268 @@
+<h1>Create user</h1>
+
+<div [ngSwitch]="toggle">
+  <div *ngSwitchCase="1">
+    <h2>Main info</h2>
+    <form class="card" [formGroup]="formInfo">
+      <div class="form-group">
+        <label for="firstName">First Name*:</label>
+        <input
+          class="form-control"
+          formControlName="firstname"
+          type="text"
+          id="firstName"
+        />
+        <div class="validation" *ngIf="this.formInfo.get('firstname').invalid && this.formInfo.get('firstname').touched ">
+          <small *ngIf="this.formInfo.get('firstname').errors.required">
+            Name field can`t be empty.
+          </small>
+          <small *ngIf="this.formInfo.get('firstname').errors.pattern">
+            Name field can`t have numbers.
+          </small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastname">Last Name*:</label>
+        <input
+          class="form-control"
+          formControlName="lastname"
+          type="text"
+          id="lastname"
+        />
+        <div class="validation" *ngIf="this.formInfo.get('lastname').invalid && this.formInfo.get('lastname').touched ">
+          <small *ngIf="this.formInfo.get('lastname').errors.required">
+            Last name field can`t be empty.
+          </small>
+          <small *ngIf="this.formInfo.get('lastname').errors.pattern">
+            Last name field can`t have numbers.
+          </small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input
+          class="form-control"
+          formControlName="username"
+          type="text"
+          id="username"
+        />
+        <div class="validation" *ngIf="this.formInfo.get('username').invalid && this.formInfo.get('username').touched ">
+          <small *ngIf="this.formInfo.get('username').errors.required">
+            Username field can`t be empty.
+          </small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input
+          class="form-control"
+          formControlName="phone"
+          type="text"
+          id="phone"
+        />
+        <div class="validation" *ngIf="this.formInfo.get('phone').invalid && this.formInfo.get('phone').touched ">
+          <small *ngIf="this.formInfo.get('phone').errors.required">
+            Phone field can`t be empty.
+          </small>
+          <small *ngIf="this.formInfo.get('phone').errors.pattern">
+            Phone field must have only numbers.
+          </small>
+          <small *ngIf="this.formInfo.get('phone').value.length !== 10">
+            Phone number must have 10 digits.
+          </small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="mail">Mail:</label>
+        <input
+          class="form-control"
+          formControlName="mail"
+          type="text"
+          id="mail"
+        />
+        <div class="validation" *ngIf="this.formInfo.get('mail').invalid && this.formInfo.get('mail').touched ">
+          <small *ngIf="this.formInfo.get('mail').errors.required">
+            Mail field can`t be empty.
+          </small>
+          <small *ngIf="this.formInfo.get('mail').errors.email">
+            Incorrect mail.
+          </small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pass">Password:</label>
+        <input
+          class="form-control"
+          formControlName="password"
+          type="text"
+          id="pass"
+        />
+        <div class="validation" *ngIf="this.formInfo.get('password').invalid && this.formInfo.get('password').touched ">
+          <small *ngIf="this.formInfo.get('password').errors.required">
+            Password field can`t be empty.
+          </small>
+          <small *ngIf="this.formInfo.get('password').value.length < 6">
+            Password must have at least 6 symbols.
+          </small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="check">Check password:</label>
+        <input
+          class="form-control"
+          formControlName="check"
+          type="text"
+          id="check"
+        />
+        <div class="validation" *ngIf="this.formInfo.get('check').invalid && this.formInfo.get('check').touched ">
+          <small *ngIf="this.formInfo.get('password').value !== this.formInfo.get('check').value">
+            Incorrect password check.
+          </small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5 mt-30">
+          <button
+            class="btn btn-primary"
+            (click)="toggle = toggle + 1"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div *ngSwitchCase="2">
+    <h2>Adress information</h2>
+    <div [formGroup]="formInfo">
+      <div formArrayName="formAdress">
+        <form
+          [formGroup]="item"
+          *ngFor="let item of formInfo.get('formAdress')?.controls; index as i"
+          style="
+            border: 1px solid dodgerblue;
+            margin: 10px;
+            border-radius: 10px;
+            padding: 5px;
+          "
+        >
+          <select
+            class="custom-select form-control mb-4"
+            formControlName="adressType"
+          >
+            <option value="Billing Address">Billing Address</option>
+            <option value="Shipment Address">Shipment Address</option>
+            <option value="Home Address">Home Address</option>
+          </select>
+          <div class="form-group mb-4">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Adress"
+              formControlName="adress"
+            />
+          </div>
+          <div class="form-row">
+            <div class="form-group col">
+              <input
+                class="form-control"
+                type="text"
+                placeholder="City"
+                formControlName="city"
+              />
+            </div>
+            <div class="form-group col">
+              <select
+                class="custom select form-control"
+                formControlName="country"
+              >
+                <option *ngFor="let obj of countries" [value]="obj.name">
+                  {{ obj.name }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group col">
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Postal code"
+                formControlName="postalCode"
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="deleteAdress(i)"
+          >
+            Delete
+          </button>
+        </form>
+      </div>
+      <div class="row">
+        <button class="btn-success mb-4" (click)="addAdress()">
+          Add new adress
+        </button>
+      </div>
+      <div class="row">
+        <button
+          type="submit"
+          class="btn btn-outline-primary mr-3"
+          (click)="toggle = toggle - 1"
+        >
+          Previous
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="toggle = toggle + 1"
+          [disabled]="formInfo.invalid"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="3">
+    <h2>Summary Page</h2>
+    <p>Fist Name: {{ getInfoValue(formInfo, "firstname") }}</p>
+    <p>Last Name: {{ getInfoValue(formInfo, "lastname") }}</p>
+    <p>Username: {{ getInfoValue(formInfo, "username") }}</p>
+    <p>Phone: {{ getInfoValue(formInfo, "phone") }}</p>
+    <p>Mail: {{ getInfoValue(formInfo, "mail") }}</p>
+    <div
+      *ngFor="let form of formInfo.get('formAdress')?.controls; index as i"
+      style="border: 2px solid darkolivegreen"
+      class="m-3 p-3"
+    >
+      <p>Adress type: {{ getInfoValue(form, "adressType") }}</p>
+      <p>Adress: {{ getInfoValue(form, "adress") }}</p>
+      <p>City: {{ getInfoValue(form, "city") }}</p>
+      <p>Country: {{ getInfoValue(form, "country") }}</p>
+      <p>Postal code: {{ getInfoValue(form, "postalCode") }}</p>
+  </div>
+    <button
+      type="submit"
+      class="btn btn-outline-primary mr-3"
+      (click)="toggle = toggle - 1"
+    >
+      Previous
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger m-3"
+      routerLink="/">
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="btn btn-success m-3"
+      (click)="saveForm()"
+      routerLink="/"
+    >
+      Save
+    </button>
+</div>
+</div>

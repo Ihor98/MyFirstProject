@@ -12,7 +12,7 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { CommonModule } from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
-import {MatTableModule} from "@angular/material/table";
+import {MatTableModule} from '@angular/material/table';
 import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({

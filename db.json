@@ -3,118 +3,112 @@
     {
       "firstname": "Ihor",
       "lastname": "Nadiuk",
-      "username": "ihor",
+      "username": "ihorko",
       "phone": "1234567890",
-      "mail": "jdkfb@mail.ru",
-      "password": "1234567",
-      "check": "1234567",
       "formAdress": [
         {
           "adressType": "Billing Address",
-          "adress": "Mayo",
+          "country": "Poland",
           "city": "Lviv",
-          "country": "Ukraine",
-          "postalCode": "12345"
+          "postalCode": "12345",
+          "adress": "Street"
         },
         {
           "adressType": "Home Address",
-          "adress": "Shept",
-          "city": "Drogobych",
           "country": "Ukraine",
-          "postalCode": "82100"
+          "city": "Drogobych",
+          "postalCode": "82100",
+          "adress": "Shept"
         }
       ],
       "id": 1
     },
     {
-      "firstname": "Vlad",
+      "firstname": "Vladuk",
       "lastname": "Musiy",
-      "username": "ihor",
+      "username": "vlados",
       "phone": "1234567890",
-      "mail": "jdkfb@mail.ru",
-      "password": "1234567",
-      "check": "1234567",
       "formAdress": [
         {
           "adressType": "Billing Address",
-          "adress": "Mayo",
-          "city": "Lviv",
-          "country": "Ukraine",
-          "postalCode": "12345"
+          "country": "Poland",
+          "city": "Warsaw",
+          "postalCode": "12345",
+          "adress": "Street"
         },
         {
           "adressType": "Home Address",
-          "adress": "Shept",
-          "city": "Drogobych",
           "country": "Ukraine",
-          "postalCode": "82100"
+          "city": "Drogobych",
+          "postalCode": "82100",
+          "adress": "Shept"
         }
       ],
       "id": 2
     },
     {
       "firstname": "Roman",
-      "lastname": "Gorishniak",
-      "username": "romjek",
+      "lastname": "Romaniv",
+      "username": "povar",
       "phone": "1234567890",
-      "mail": "jdkfb@mail.ru",
-      "password": "1234567",
-      "check": "1234567",
       "formAdress": [
         {
           "adressType": "Billing Address",
-          "adress": "Mayo",
-          "city": "Lviv",
           "country": "Ukraine",
-          "postalCode": "12345"
-        },
-        {
-          "adressType": "Home Address",
-          "adress": "Shept",
-          "city": "Drogobych",
-          "country": "Ukraine",
-          "postalCode": "82100"
+          "city": "Kyiv",
+          "postalCode": "12345",
+          "adress": "Troyeshchina"
         }
       ],
       "id": 3
     },
     {
-      "firstname": "Roman",
-      "lastname": "Romaniv",
-      "username": "romaniv",
-      "phone": "1234567890",
-      "mail": "jdkfb@mail.ru",
-      "password": "1234567",
-      "check": "1234567",
+      "firstname": "Mykhailo",
+      "lastname": "Lub",
+      "username": "mishaa",
+      "phone": "0939876543",
       "formAdress": [
         {
-          "adressType": "Billing Address",
-          "adress": "Mayo",
-          "city": "Lviv",
+          "adressType": "Home Address",
           "country": "Ukraine",
-          "postalCode": "12345"
+          "city": "Lviv",
+          "postalCode": "12908",
+          "adress": "Levandivka"
         }
       ],
       "id": 4
     },
     {
-      "firstname": "Michael",
-      "lastname": "Lub",
-      "username": "mishaa",
-      "phone": "0939876543",
-      "mail": "misha@gmail.com",
-      "password": "1234567",
-      "check": "1234567",
+      "firstname": "Iryna",
+      "lastname": "Haman",
+      "username": "lovely girl",
+      "phone": "0976665432",
       "formAdress": [
         {
           "adressType": "Home Address",
-          "adress": "Levandivka",
-          "city": "Lviv",
           "country": "Ukraine",
-          "postalCode": "12908"
+          "city": "Popeli",
+          "postalCode": "82101",
+          "adress": "Franka 44"
         }
       ],
       "id": 5
+    },
+    {
+      "firstname": "Nazar",
+      "lastname": "Myron",
+      "username": "nazarko22",
+      "phone": "0978007765",
+      "formAdress": [
+        {
+          "adressType": "Home Address",
+          "country": "Ukraine",
+          "city": "Lviv",
+          "postalCode": "33245",
+          "adress": "Levandivka"
+        }
+      ],
+      "id": 7
     }
   ]
 }

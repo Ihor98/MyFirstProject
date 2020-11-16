@@ -59,8 +59,8 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let user of this.users; index as i">
-      <tr>
+    <ng-container *ngFor="let user of users; index as i">
+      <tr *ngIf="user.show">
         <td>{{ i + 1 }}</td>
         <td>{{ user.firstname }}</td>
         <td>{{ user.lastname }}</td>
@@ -69,7 +69,7 @@
         <td colspan="3">
           <button
             class="btn btn-outline-primary mr-3"
-            (click)="buildUpdatedAdressForm(user)"
+            (click)="user.show = !user.show"
           >
             Update
           </button>
@@ -87,95 +87,156 @@
           </button>
         </td>
       </tr>
+      <tr *ngIf="!user.show" [id]="i">
+        <td colspan="12">
+          <form [formGroup]="updatedUsersForm">
+            <table class="table">
+              <ng-container formArrayName="updatedUserInfoArray">
+                <tr [formGroupName]="i" [id]="i">
+                  <td>{{ i + 1 }}</td>
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="firstname"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="lastname"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="username"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="phone"
+                    />
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-outline-primary mr-1"
+                      (click)="
+                        updateUserData(
+                          user,
+                          updatedUsersForm.get('updatedUserInfoArray').controls[
+                            i
+                          ].value
+                        )
+                      "
+                    >
+                      Save
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </form>
+        </td>
+      </tr>
       <tr>
         <td colspan="12">
           <div class="collapse show" [id]="i">
-            <div class="card card-body">
-              <table class="table">
-                <thead>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Adress type</th>
+                  <th>Country</th>
+                  <th>City</th>
+                  <th>Postal code</th>
+                  <th>Adress</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let adress of user.formAdress">
                   <tr>
-                    <th>Adress type</th>
-                    <th>Country</th>
-                    <th>City</th>
-                    <th>Postal code</th>
-                    <th>Adress</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let adress of user.formAdress">
                     <td>{{ adress.adressType }}</td>
                     <td>{{ adress.country }}</td>
                     <td>{{ adress.city }}</td>
                     <td>{{ adress.postalCode }}</td>
                     <td>{{ adress.adress }}</td>
+                    <td>
+                      <button class="btn btn-outline-primary mr-3">
+                        Update
+                      </button>
+                      <button class="btn btn-danger">Delete</button>
+                    </td>
                   </tr>
-                </tbody>
-              </table>
-            </div>
+                  <tr>
+                    <td colspan="12">
+                      <form [formGroup]="updatedUsersForm">
+                        <table class="table">
+                          <ng-container formArrayName="updatedUserInfoArray">
+                            <tr [formGroupName]="i">
+                              <td>
+                                <select
+                                  class="custom-select form-control"
+                                  formControlName="adressType"
+                                >
+                                  <option value="Billing Address">
+                                    Billing Address
+                                  </option>
+                                  <option value="Shipment Address">
+                                    Shipment Address
+                                  </option>
+                                  <option value="Home Address">
+                                    Home Address
+                                  </option>
+                                </select>
+                              </td>
+                              <td>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  formControlName="adress"
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  formControlName="city"
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  formControlName="country"
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  formControlName="postalCode"
+                                />
+                              </td>
+                            </tr>
+                          </ng-container>
+                        </table>
+                      </form>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
           </div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="12">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Adress type</th>
-                <th>Country</th>
-                <th>City</th>
-                <th>Postal code</th>
-                <th>Adress</th>
-              </tr>
-            </thead>
-<!--            <tbody [formGroup] = updatedAdressForm>-->
-<!--              <tr formArrayName="updatedAdressArray" *ngFor="let group of this.updatedAdressArray?.controls; let index = i">-->
-<!--                <td [formGroup] = "group">-->
-<!--                  <input-->
-<!--                    type="text"-->
-<!--                    class="form-control"-->
-<!--                    formControlName="updatedAdressType"-->
-<!--                  />-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                  <input-->
-<!--                    type="text"-->
-<!--                    class="form-control"-->
-<!--                    formControlName="updatedAdress"-->
-<!--                  />-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                  <input-->
-<!--                    type="text"-->
-<!--                    class="form-control"-->
-<!--                    formControlName="updatedCity"-->
-<!--                  />-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                  <input-->
-<!--                    type="text"-->
-<!--                    class="form-control"-->
-<!--                    formControlName="updatedCountry"-->
-<!--                  />-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                  <input-->
-<!--                    type="text"-->
-<!--                    class="form-control"-->
-<!--                    formControlName="updatedPostalCode"-->
-<!--                  />-->
-<!--                </td>-->
-<!--              </tr>-->
-<!--            </tbody>-->
-          </table>
         </td>
       </tr>
     </ng-container>
   </tbody>
 </table>
-
-
-
-
 
 <!--<div id="accordio">-->
 <!--  <div class="card">-->

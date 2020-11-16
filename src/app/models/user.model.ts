@@ -1,4 +1,6 @@
 export interface User {
+  show: boolean;
+  id: number;
   firstname: string;
   lastname: string;
   username: string;

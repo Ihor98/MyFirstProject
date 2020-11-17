@@ -1,5 +1,7 @@
 export interface User {
-  show: boolean;
+  showUserInfo: boolean;
+  adressToggle: boolean;
+  showAddAdress: boolean;
   id: number;
   firstname: string;
   lastname: string;
@@ -12,6 +14,7 @@ export interface User {
 }
 
 interface Adress {
+  showAdressInfo: boolean;
   adressType: string;
   adress: string;
   city: string;

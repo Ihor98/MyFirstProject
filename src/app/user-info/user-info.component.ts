@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { GetUserService } from '../../services/getUser';
 import { User } from '../models/user.model';
 import { DeleteUserService } from '../../services/delete-user.service';
+import {AddUserService} from '../../services/addUser';
 
 @Component({
   selector: 'app-user-info',
@@ -19,16 +20,23 @@ export class UserInfoComponent implements OnInit {
   updatedAdressForm: FormGroup;
   updatedUserInfoForm: FormGroup;
   userInfoFormToggle = true;
+  newAdressForm: FormGroup;
+
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private getUserService: GetUserService,
-    private deleteUserService: DeleteUserService
-  ) {}
+    private deleteUserService: DeleteUserService,
+    private addUserService: AddUserService
+  ) {
+  }
+
   ngOnInit(): void {
     this.buildSearchForm();
+    this.buildNewAdressForm();
   }
+
   buildSearchForm(): void {
     this.searchForm = this.fb.group({
       firstname: [null],
@@ -38,6 +46,7 @@ export class UserInfoComponent implements OnInit {
       phone: [null],
     });
   }
+
   getUsers(): void {
     this.getUserService.getData().subscribe((resp) => {
       this.users = resp;
@@ -46,18 +55,24 @@ export class UserInfoComponent implements OnInit {
         updatedUserInfoArray: this.fb.array([]),
       });
       this.users.forEach((user, index) => {
-        user.show = true;
+        user.showUserInfo = true;
+        user.adressToggle = false;
+        user.showAddAdress = false;
         (this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).push(
           this.buildUpdatedUserInfoForm(user)
         );
-        user.formAdress.forEach((adress ) =>
-          ((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).at(
-            index
-          ).get('formAdress') as FormArray).push(this.buildAdressFormGroup(adress)), 'test)'
-        );
+        user.formAdress.forEach((adress) => {
+          adress.showAdressInfo = false;
+          ((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray)
+            .at(index)
+            .get('formAdress') as FormArray).push(
+            this.buildAdressFormGroup(adress)
+          );
+        });
       });
     });
   }
+
   buildUpdatedUserInfoForm(user): FormGroup {
     return this.fb.group({
       firstname: [
@@ -82,39 +97,15 @@ export class UserInfoComponent implements OnInit {
     });
   }
 
-  buildAdressFormArray(user): FormArray {
-    return this.fb.array([
-      user.formAdress.forEach((adress) =>
-        this.fb.group({
-          updatedAdressType: [adress.adressType, Validators.required],
-          updatedAdress: [adress.adress, Validators.required],
-          updatedCity: [adress.city, Validators.required],
-          updatedCountry: [adress.country, Validators.required],
-          updatedPostalCode: [
-            adress.postalCode,
-            [
-              Validators.required,
-              Validators.pattern(/[0-9]/),
-              Validators.minLength(5),
-              Validators.maxLength(5),
-            ],
-          ],
-        })
-      ),
-    ]);
-  }
-  buildUpdatedAdressFormArray(user): void {
-    (this.updatedAdressForm.get('updatedAdressArray') as FormArray).push(
-      this.fb.array([user.formAdress.forEach((adress) => {this.buildAdressFormGroup(adress)})])
-    );
-  }
-
   buildAdressFormGroup(adress): FormGroup {
     return this.fb.group({
       adressType: [adress.adressType, Validators.required],
       country: [adress.country, Validators.required],
       city: [adress.city, Validators.required],
-      postalCode: [adress.postalCode, Validators.required],
+      postalCode: [
+        adress.postalCode,
+        [Validators.required, Validators.minLength(5), Validators.maxLength(5)],
+      ],
       adress: [
         adress.adress,
         [
@@ -128,9 +119,20 @@ export class UserInfoComponent implements OnInit {
   }
 
   deleteUsers(i: number): void {
-    this.deleteUserService.deleteUser(i).subscribe((resp) => {});
+    this.deleteUserService.deleteUser(i).subscribe();
     this.getUsers();
   }
+
+  deleteAdress(i: number, j: number): void {
+    ((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[i].get('formAdress') as FormArray).removeAt(j);
+    const data = (this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[i].value;
+    this.http
+      .put('http://localhost:3000/profiles/' + this.users[i].id, data)
+      .subscribe();
+    this.getUsers();
+    this.users[i].adressToggle = true;
+  }
+
   filter(object): void {
     const values = Object.values(object);
     const properties = Object.keys(object);
@@ -146,15 +148,38 @@ export class UserInfoComponent implements OnInit {
     });
     this.toggle = true;
   }
+
   clear(): void {
     this.toggle = false;
     this.searchForm.reset();
   }
 
   updateUserData(user: User, data: object): void {
-    // console.log((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[user.id].value);
-    this.http.put('http://localhost:3000/profiles/' + (user.id), data).subscribe(console.log);
-    user.show = !user.show;
+    this.http
+      .put('http://localhost:3000/profiles/' + user.id, data)
+      .subscribe();
+    user.showUserInfo = !user.showUserInfo;
     this.getUsers();
+  }
+
+  buildNewAdressForm(): void {
+    this.newAdressForm = this.fb.group({
+      adressType: [null, Validators.required],
+      adress: [null, Validators.required],
+      city: [null, Validators.required],
+      country: [null, Validators.required],
+      postalCode: [
+        null,
+        [Validators.required, Validators.minLength(5), Validators.maxLength(5)],
+      ],
+    });
+  }
+
+
+  addAdress(i: number): void {
+    this.users[i].formAdress.push(this.newAdressForm.value);
+    this.http.put('http://localhost:3000/profiles/' + this.users[i].id, this.users[i]).subscribe();
+    this.getUsers();
+    this.newAdressForm.reset();
   }
 }

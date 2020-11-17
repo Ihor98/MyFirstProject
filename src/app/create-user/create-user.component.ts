@@ -101,7 +101,10 @@ export class CreateUserComponent implements OnInit {
       adress: [null, Validators.required],
       city: [null, Validators.required],
       country: [null, Validators.required],
-      postalCode: [null, Validators.required],
+      postalCode: [
+        null,
+        [Validators.required, Validators.minLength(5), Validators.maxLength(5)],
+      ],
     });
     (this.formInfo.get('formAdress') as FormArray).push(newAdress);
   }

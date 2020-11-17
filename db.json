@@ -1,47 +1,24 @@
 {
   "profiles": [
     {
-      "firstname": "Ihor",
-      "lastname": "Nadiuk",
-      "username": "ihorko",
-      "phone": "1234567890",
-      "formAdress": [
-        {
-          "adressType": "Billing Address",
-          "country": "Poland",
-          "city": "Lviv",
-          "postalCode": "12345",
-          "adress": "Street"
-        },
-        {
-          "adressType": "Home Address",
-          "country": "Ukraine",
-          "city": "Drogobych",
-          "postalCode": "82100",
-          "adress": "Shept"
-        }
-      ],
-      "id": 1
-    },
-    {
-      "firstname": "Vladuk",
-      "lastname": "Musiy",
+      "firstname": "Vladuky",
+      "lastname": "Musiyss",
       "username": "vlados",
       "phone": "1234567890",
       "formAdress": [
         {
-          "adressType": "Billing Address",
-          "country": "Poland",
-          "city": "Warsaw",
-          "postalCode": "12345",
-          "adress": "Street"
-        },
-        {
           "adressType": "Home Address",
           "country": "Ukraine",
           "city": "Drogobych",
           "postalCode": "82100",
           "adress": "Shept"
+        },
+        {
+          "adressType": "Shipment Address",
+          "country": null,
+          "city": "lviv",
+          "postalCode": null,
+          "adress": null
         }
       ],
       "id": 2
@@ -57,10 +34,29 @@
           "country": "Ukraine",
           "city": "Kyiv",
           "postalCode": "12345",
-          "adress": "Troyeshchina"
+          "adress": "Troyeshchina",
+          "showAdressInfo": false
+        },
+        {
+          "adressType": "Billing Address",
+          "country": "Ukraine",
+          "city": "Kyiv",
+          "postalCode": "12345",
+          "adress": "Troyeshchina",
+          "showAdressInfo": false
+        },
+        {
+          "adressType": "Home Address",
+          "adress": "Sagaid",
+          "city": "Drog",
+          "country": "Ukr",
+          "postalCode": "82100"
         }
       ],
-      "id": 3
+      "id": 3,
+      "showUserInfo": true,
+      "adressToggle": true,
+      "showAddAdress": true
     },
     {
       "firstname": "Mykhailo",
@@ -88,7 +84,7 @@
           "adressType": "Home Address",
           "country": "Ukraine",
           "city": "Popeli",
-          "postalCode": "82101",
+          "postalCode": "82103",
           "adress": "Franka 44"
         }
       ],
@@ -106,6 +102,13 @@
           "city": "Lviv",
           "postalCode": "33245",
           "adress": "Levandivka"
+        },
+        {
+          "adressType": "Billing Address",
+          "country": "Ukraine",
+          "city": "Lviv",
+          "postalCode": "33245",
+          "adress": "Riasne"
         }
       ],
       "id": 7

@@ -60,7 +60,7 @@
   </thead>
   <tbody>
     <ng-container *ngFor="let user of users; index as i">
-      <tr *ngIf="user.show">
+      <tr *ngIf="user.showUserInfo">
         <td>{{ i + 1 }}</td>
         <td>{{ user.firstname }}</td>
         <td>{{ user.lastname }}</td>
@@ -69,7 +69,7 @@
         <td colspan="3">
           <button
             class="btn btn-outline-primary mr-3"
-            (click)="user.show = !user.show"
+            (click)="user.showUserInfo = !user.showUserInfo"
           >
             Update
           </button>
@@ -79,6 +79,7 @@
             [attr.data-target]="'#' + i"
             aria-expanded="true"
             [attr.aria-controls]="i"
+            (click)="user.adressToggle = !user.adressToggle"
           >
             Adress info
           </button>
@@ -87,7 +88,7 @@
           </button>
         </td>
       </tr>
-      <tr *ngIf="!user.show" [id]="i">
+      <tr *ngIf="!user.showUserInfo" [id]="i">
         <td colspan="12">
           <form [formGroup]="updatedUsersForm">
             <table class="table">
@@ -128,9 +129,8 @@
                       (click)="
                         updateUserData(
                           user,
-                          updatedUsersForm.get('updatedUserInfoArray').controls[
-                            i
-                          ].value
+                          updatedUsersForm.get('updatedUserInfoArray')
+                            ?.controls[i].value
                         )
                       "
                     >
@@ -143,7 +143,7 @@
           </form>
         </td>
       </tr>
-      <tr>
+      <tr *ngIf="user.adressToggle">
         <td colspan="12">
           <div class="collapse show" [id]="i">
             <table class="table">
@@ -158,70 +158,100 @@
                 </tr>
               </thead>
               <tbody>
-                <ng-container *ngFor="let adress of user.formAdress">
-                  <tr>
+                <ng-container
+                  *ngFor="let adress of user.formAdress; index as j"
+                >
+                  <tr *ngIf="!adress.showAdressInfo">
                     <td>{{ adress.adressType }}</td>
                     <td>{{ adress.country }}</td>
                     <td>{{ adress.city }}</td>
                     <td>{{ adress.postalCode }}</td>
                     <td>{{ adress.adress }}</td>
                     <td>
-                      <button class="btn btn-outline-primary mr-3">
+                      <button
+                        class="btn btn-outline-primary mr-1"
+                        (click)="adress.showAdressInfo = !adress.showAdressInfo"
+                      >
                         Update
                       </button>
-                      <button class="btn btn-danger">Delete</button>
+                      <button
+                        class="btn btn-danger mr-1"
+                        (click)="deleteAdress(i, j)"
+                      >
+                        Delete
+                      </button>
+                      <button class="btn btn-primary" (click)="user.showAddAdress = true">Add</button>
                     </td>
                   </tr>
-                  <tr>
+                  <tr *ngIf="adress.showAdressInfo">
                     <td colspan="12">
                       <form [formGroup]="updatedUsersForm">
                         <table class="table">
                           <ng-container formArrayName="updatedUserInfoArray">
                             <tr [formGroupName]="i">
-                              <td>
-                                <select
-                                  class="custom-select form-control"
-                                  formControlName="adressType"
-                                >
-                                  <option value="Billing Address">
-                                    Billing Address
-                                  </option>
-                                  <option value="Shipment Address">
-                                    Shipment Address
-                                  </option>
-                                  <option value="Home Address">
-                                    Home Address
-                                  </option>
-                                </select>
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  formControlName="adress"
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  formControlName="city"
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  formControlName="country"
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  formControlName="postalCode"
-                                />
-                              </td>
+                              <ng-container formArrayName="formAdress">
+                                <ng-container [formGroupName]="j">
+                                  <td>
+                                    <select
+                                      class="custom-select form-control"
+                                      formControlName="adressType"
+                                    >
+                                      <option value="Billing Address">
+                                        Billing Address
+                                      </option>
+                                      <option value="Shipment Address">
+                                        Shipment Address
+                                      </option>
+                                      <option value="Home Address">
+                                        Home Address
+                                      </option>
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      formControlName="country"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      formControlName="city"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      formControlName="postalCode"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      formControlName="adress"
+                                    />
+                                  </td>
+                                  <td>
+                                    <button
+                                      class="btn btn-outline-primary mr-1"
+                                      (click)="
+                                        updateUserData(
+                                          user,
+                                          updatedUsersForm.get(
+                                            'updatedUserInfoArray'
+                                          )?.controls[i].value
+                                        )
+                                      "
+                                    >
+                                      Save
+                                    </button>
+                                  </td>
+                                </ng-container>
+                              </ng-container>
                             </tr>
                           </ng-container>
                         </table>
@@ -229,6 +259,49 @@
                     </td>
                   </tr>
                 </ng-container>
+                <tr *ngIf="user.showAddAdress" [formGroup]="newAdressForm">
+                  <td>
+                    <select
+                      class="custom-select form-control"
+                      formControlName="adressType"
+                    >
+                      <option value="Billing Address">Billing Address</option>
+                      <option value="Shipment Address">Shipment Address</option>
+                      <option value="Home Address">Home Address</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="country"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="city"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="postalCode"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="adress"
+                    />
+                  </td>
+                  <td>
+                    <button class="btn btn-outline-primary" (click)="addAdress(i)">Save</button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>

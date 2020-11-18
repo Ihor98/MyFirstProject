@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
-import { DeleteUserService } from '../services/delete-user.service';
 import {UserService} from '../services/user.service';
 
 @Component({
@@ -16,8 +15,6 @@ export class UserInfoComponent implements OnInit {
   toggle = false;
   updatedUsersForm: FormGroup;
   updatedUserInfoArray: FormArray;
-  updatedAdressForm: FormGroup;
-  updatedUserInfoForm: FormGroup;
   userInfoFormToggle = true;
   newAdressForm: FormGroup;
 
@@ -25,8 +22,7 @@ export class UserInfoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private userService: UserService,
-    private deleteUserService: DeleteUserService,
+    private userService: UserService
   ) {
   }
 
@@ -117,7 +113,7 @@ export class UserInfoComponent implements OnInit {
   }
 
   deleteUsers(i: number): void {
-    this.deleteUserService.deleteUser(i).subscribe();
+    this.userService.deleteUser(i).subscribe();
     this.getUsers();
   }
 

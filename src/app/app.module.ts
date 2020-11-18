@@ -17,7 +17,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
-import {UserState} from './state/user.state';
+import {UserState} from './user/store/user.state';
 
 @NgModule({
   declarations: [

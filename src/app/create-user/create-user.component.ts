@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountryServiceService } from '../services/country-service.service';
 import { HttpClient } from '@angular/common/http';
-import { UserService } from '../services/user.service';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-create-user',

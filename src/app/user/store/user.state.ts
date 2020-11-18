@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action, State, Store } from '@ngxs/store';
-import { User } from '../models/user.model';
+import { User } from '../user.model';
 
 export class UserStateModel {
   users: User[];

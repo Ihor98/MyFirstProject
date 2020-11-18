@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../models/user.model';
-import {UserService} from '../services/user.service';
+import { User } from '../user/user.model';
+import {UserService} from '../user/user.service';
 
 @Component({
   selector: 'app-user-info',

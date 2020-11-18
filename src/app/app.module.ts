@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponentComponent } from './header-component/header-component.component';
@@ -11,9 +11,13 @@ import { MainContentComponentComponent } from './main-layout-component/main-cont
 import { UserInfoComponent } from './user-info/user-info.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { CommonModule } from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
-import {MatTableModule} from '@angular/material/table';
+import { HttpClientModule } from '@angular/common/http';
+import { MatTableModule } from '@angular/material/table';
 import { FilterPipe } from './pipes/filter.pipe';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import {UserState} from './state/user.state';
 
 @NgModule({
   declarations: [
@@ -25,18 +29,23 @@ import { FilterPipe } from './pipes/filter.pipe';
     MainContentComponentComponent,
     UserInfoComponent,
     CreateUserComponent,
-    FilterPipe
+    FilterPipe,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CommonModule,
-        HttpClientModule,
-        MatTableModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    HttpClientModule,
+    MatTableModule,
+    NgxsModule.forRoot(
+      [UserState]
+    ),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot()
+  ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -7,7 +7,5 @@ import {Observable} from 'rxjs';
 })
 export class AddUserService {
   constructor(private http: HttpClient) {}
-  passData(formValue: object): Observable<object> {
-    return this.http.post('http://localhost:3000/profiles', formValue);
-  }
+
 }

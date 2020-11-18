@@ -12,13 +12,6 @@
           "city": "Drogobych",
           "postalCode": "82100",
           "adress": "Shept"
-        },
-        {
-          "adressType": "Shipment Address",
-          "country": null,
-          "city": "lviv",
-          "postalCode": null,
-          "adress": null
         }
       ],
       "id": 2
@@ -34,29 +27,17 @@
           "country": "Ukraine",
           "city": "Kyiv",
           "postalCode": "12345",
-          "adress": "Troyeshchina",
-          "showAdressInfo": false
-        },
-        {
-          "adressType": "Billing Address",
-          "country": "Ukraine",
-          "city": "Kyiv",
-          "postalCode": "12345",
-          "adress": "Troyeshchina",
-          "showAdressInfo": false
+          "adress": "Troyeshchina"
         },
         {
           "adressType": "Home Address",
-          "adress": "Sagaid",
+          "country": "Ukraine",
           "city": "Drog",
-          "country": "Ukr",
-          "postalCode": "82100"
+          "postalCode": "82100",
+          "adress": "Sagaid"
         }
       ],
-      "id": 3,
-      "showUserInfo": true,
-      "adressToggle": true,
-      "showAddAdress": true
+      "id": 3
     },
     {
       "firstname": "Mykhailo",

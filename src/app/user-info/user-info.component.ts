@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { GetUserService } from '../../services/getUser';
 import { User } from '../models/user.model';
-import { DeleteUserService } from '../../services/delete-user.service';
-import {AddUserService} from '../../services/addUser';
+import { DeleteUserService } from '../services/delete-user.service';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-user-info',
@@ -26,9 +25,8 @@ export class UserInfoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private getUserService: GetUserService,
+    private userService: UserService,
     private deleteUserService: DeleteUserService,
-    private addUserService: AddUserService
   ) {
   }
 
@@ -48,7 +46,7 @@ export class UserInfoComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.getUserService.getData().subscribe((resp) => {
+    this.userService.getData().subscribe((resp) => {
       this.users = resp;
       this.filter(this.searchForm.value);
       this.updatedUsersForm = this.fb.group({

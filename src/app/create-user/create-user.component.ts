@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CountryServiceService } from '../../services/country-service.service';
+import { CountryServiceService } from '../services/country-service.service';
 import { HttpClient } from '@angular/common/http';
-import { AddUserService } from '../../services/addUser';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-create-user',
@@ -18,7 +18,7 @@ export class CreateUserComponent implements OnInit {
     private fb: FormBuilder,
     private countryServiceService: CountryServiceService,
     private http: HttpClient,
-    private addUserService: AddUserService
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -118,6 +118,6 @@ export class CreateUserComponent implements OnInit {
     (this.formInfo.get('formAdress') as FormArray).removeAt(i);
   }
   saveForm(): void {
-    this.addUserService.passData(this.formInfo.value).subscribe();
+    this.userService.passData(this.formInfo.value).subscribe();
   }
 }

@@ -13,7 +13,7 @@ export interface User {
   formAdress: Array<Adress>;
 }
 
-interface Adress {
+export interface Adress {
   showAdressInfo: boolean;
   adressType: string;
   adress: string;

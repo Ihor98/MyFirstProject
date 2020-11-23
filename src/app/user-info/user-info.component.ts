@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../user/user.model';
-import {UserService} from '../user/user.service';
+import { Adress, User } from '../user/user.model';
+import { UserService } from '../user/user.service';
+import { Select, Store } from '@ngxs/store';
+import { DeleteUser, GetUsers, UpdateUser } from '../user/store/user.actions';
+import { pluck } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-info',
@@ -18,13 +21,12 @@ export class UserInfoComponent implements OnInit {
   userInfoFormToggle = true;
   newAdressForm: FormGroup;
 
-
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private userService: UserService
-  ) {
-  }
+    private userService: UserService,
+    private store: Store
+  ) {}
 
   ngOnInit(): void {
     this.buildSearchForm();
@@ -42,29 +44,32 @@ export class UserInfoComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.userService.getData().subscribe((resp) => {
-      this.users = resp;
-      this.filter(this.searchForm.value);
-      this.updatedUsersForm = this.fb.group({
-        updatedUserInfoArray: this.fb.array([]),
-      });
-      this.users.forEach((user, index) => {
-        user.showUserInfo = true;
-        user.adressToggle = false;
-        user.showAddAdress = false;
-        (this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).push(
-          this.buildUpdatedUserInfoForm(user)
-        );
-        user.formAdress.forEach((adress) => {
-          adress.showAdressInfo = false;
-          ((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray)
-            .at(index)
-            .get('formAdress') as FormArray).push(
-            this.buildAdressFormGroup(adress)
+    this.store
+      .dispatch(new GetUsers())
+      .pipe(pluck('users', 'usersList'))
+      .subscribe((resp) => {
+        this.users = resp;
+        this.filter(this.searchForm.value);
+        this.updatedUsersForm = this.fb.group({
+          updatedUserInfoArray: this.fb.array([]),
+        });
+        this.users.forEach((user, index) => {
+          user.showUserInfo = true;
+          user.adressToggle = false;
+          user.showAddAdress = false;
+          (this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).push(
+            this.buildUpdatedUserInfoForm(user)
           );
+          user.formAdress.forEach((adress) => {
+            adress.showAdressInfo = false;
+            ((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray)
+              .at(index)
+              .get('formAdress') as FormArray).push(
+              this.buildAdressFormGroup(adress)
+            );
+          });
         });
       });
-    });
   }
 
   buildUpdatedUserInfoForm(user): FormGroup {
@@ -112,19 +117,19 @@ export class UserInfoComponent implements OnInit {
     });
   }
 
-  deleteUsers(i: number): void {
-    this.userService.deleteUser(i).subscribe();
+  deleteUser(i: number): void {
+    this.store.dispatch(new DeleteUser(i));
     this.getUsers();
   }
 
-  deleteAdress(i: number, j: number): void {
-    ((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[i].get('formAdress') as FormArray).removeAt(j);
-    const data = (this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[i].value;
-    this.http
-      .put('http://localhost:3000/profiles/' + this.users[i].id, data)
-      .subscribe();
+  deleteAdress(data: User, i: number, j: number, id: number): void {
+    ((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[
+      i
+    ].get('formAdress') as FormArray).removeAt(j);
+    data =  (this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[i].value;
+    this.store.dispatch(new UpdateUser({ data, id }));
     this.getUsers();
-    this.users[i].adressToggle = true;
+    this.users[i].adressToggle = false;
   }
 
   filter(object): void {
@@ -148,11 +153,8 @@ export class UserInfoComponent implements OnInit {
     this.searchForm.reset();
   }
 
-  updateUserData(user: User, data: object): void {
-    this.http
-      .put('http://localhost:3000/profiles/' + user.id, data)
-      .subscribe();
-    user.showUserInfo = !user.showUserInfo;
+  updateUserData(user: User, id: number, data: User): void {
+    this.store.dispatch(new UpdateUser({ data, id }));
     this.getUsers();
   }
 
@@ -169,11 +171,19 @@ export class UserInfoComponent implements OnInit {
     });
   }
 
-
-  addAdress(i: number): void {
+  addAdress(data: User, i: number, id: number, value: Adress): void {
     this.users[i].formAdress.push(this.newAdressForm.value);
-    this.http.put('http://localhost:3000/profiles/' + this.users[i].id, this.users[i]).subscribe();
+    data = this.users[i];
+    this.store.dispatch(new UpdateUser({ data, id }));
     this.getUsers();
     this.newAdressForm.reset();
+  }
+
+  createAdress(i): void {
+    this.buildNewAdressForm();
+    ((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[
+      i
+      ].get('formAdress') as FormArray).push(this.newAdressForm);
+    this.users[i].showAddAdress = true;
   }
 }

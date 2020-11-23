@@ -3,6 +3,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountryServiceService } from '../services/country-service.service';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../user/user.service';
+import {Store} from '@ngxs/store';
+import {AddUser} from '../user/store/user.actions';
 
 @Component({
   selector: 'app-create-user',
@@ -18,7 +20,8 @@ export class CreateUserComponent implements OnInit {
     private fb: FormBuilder,
     private countryServiceService: CountryServiceService,
     private http: HttpClient,
-    private userService: UserService
+    private userService: UserService,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
@@ -117,7 +120,8 @@ export class CreateUserComponent implements OnInit {
   deleteAdress(i: number): void {
     (this.formInfo.get('formAdress') as FormArray).removeAt(i);
   }
-  saveForm(): void {
-    this.userService.passData(this.formInfo.value).subscribe();
+
+  addUser(): void {
+    this.store.dispatch(new AddUser(this.formInfo.value));
   }
 }

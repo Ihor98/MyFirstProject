@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Adress, User } from '../user/user.model';
-import { UserService } from '../user/user.service';
+import { Adress, User } from '../../../user/user.model';
+import { UserService } from '../../../user/user.service';
 import { Select, Store } from '@ngxs/store';
-import { DeleteUser, GetUsers, UpdateUser } from '../user/store/user.actions';
+import { DeleteUser, GetUsers, UpdateUser } from '../../../user/store/user.actions';
 import { pluck } from 'rxjs/operators';
 
 @Component({
@@ -122,11 +122,11 @@ export class UserInfoComponent implements OnInit {
     this.getUsers();
   }
 
-  deleteAdress(data: User, i: number, j: number, id: number): void {
+  deleteAdress( i: number, j: number, id: number): void {
     ((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[
       i
     ].get('formAdress') as FormArray).removeAt(j);
-    data =  (this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[i].value;
+    const data =  (this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[i].value;
     this.store.dispatch(new UpdateUser({ data, id }));
     this.getUsers();
     this.users[i].adressToggle = false;
@@ -171,19 +171,13 @@ export class UserInfoComponent implements OnInit {
     });
   }
 
-  addAdress(data: User, i: number, id: number, value: Adress): void {
-    this.users[i].formAdress.push(this.newAdressForm.value);
-    data = this.users[i];
-    this.store.dispatch(new UpdateUser({ data, id }));
-    this.getUsers();
-    this.newAdressForm.reset();
-  }
-
-  createAdress(i): void {
-    this.buildNewAdressForm();
+  addAdress(i: number, id: number): void {
     ((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[
       i
       ].get('formAdress') as FormArray).push(this.newAdressForm);
-    this.users[i].showAddAdress = true;
+    const data = (this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[i].value;
+    this.store.dispatch(new UpdateUser({ data, id }));
+    this.getUsers();
+    this.newAdressForm.reset();
   }
 }

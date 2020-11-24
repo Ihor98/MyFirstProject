@@ -2,7 +2,7 @@
   "profiles": [
     {
       "firstname": "Vlad",
-      "lastname": "asd",
+      "lastname": "Musiy",
       "username": "vlados",
       "phone": "1234567890",
       "formAdress": [
@@ -12,6 +12,13 @@
           "city": "Drogobych",
           "postalCode": "82100",
           "adress": "Shept"
+        },
+        {
+          "adressType": "Billing Address",
+          "country": "Poland",
+          "city": "Warsaw",
+          "postalCode": "34562",
+          "adress": "Str"
         }
       ],
       "id": 2
@@ -27,21 +34,17 @@
           "country": "Ukraine",
           "city": "Lviv",
           "postalCode": "12908",
-          "adress": "Levandivka",
-          "showAdressInfo": false
+          "adress": "Levandivka"
         },
         {
           "adressType": "Billing Address",
-          "adress": "Okruzhna",
-          "city": "Lviv",
           "country": "Ukraine",
-          "postalCode": "23444"
+          "city": "Lviv",
+          "postalCode": "23444",
+          "adress": "Okruzhna"
         }
       ],
-      "id": 4,
-      "showUserInfo": true,
-      "adressToggle": true,
-      "showAddAdress": true
+      "id": 4
     },
     {
       "firstname": "Ira",
@@ -54,10 +57,21 @@
           "country": "Ukraine",
           "city": "Popeli",
           "postalCode": "34566",
-          "adress": "Franka 44"
+          "adress": "Franka 44",
+          "showAdressInfo": false
+        },
+        {
+          "adressType": "Shipment Address",
+          "adress": "Mayorivka",
+          "city": "Lviv",
+          "country": "Ukraine",
+          "postalCode": "23111"
         }
       ],
-      "id": 6
+      "id": 6,
+      "showUserInfo": true,
+      "adressToggle": true,
+      "showAddAdress": true
     },
     {
       "firstname": "Nazar",
@@ -93,10 +107,21 @@
           "country": "Ukraine",
           "city": "Lviv",
           "postalCode": "12345",
-          "adress": "Mayorivka"
+          "adress": "Mayorivka",
+          "showAdressInfo": false
+        },
+        {
+          "adressType": "Shipment Address",
+          "adress": "Pivdenny",
+          "city": "Lviv",
+          "country": "Ukraine",
+          "postalCode": "11111"
         }
       ],
-      "id": 8
+      "id": 8,
+      "showUserInfo": true,
+      "adressToggle": true,
+      "showAddAdress": true
     },
     {
       "firstname": "Roman",

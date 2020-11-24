@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CountryServiceService } from '../services/country-service.service';
+import { CountryServiceService } from '../../../services/country-service.service';
 import { HttpClient } from '@angular/common/http';
-import { UserService } from '../user/user.service';
+import { UserService } from '../../../user/user.service';
 import {Store} from '@ngxs/store';
-import {AddUser} from '../user/store/user.actions';
+import {AddUser} from '../../../user/store/user.actions';
 
 @Component({
   selector: 'app-create-user',

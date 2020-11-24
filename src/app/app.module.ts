@@ -8,8 +8,8 @@ import { MainLayoutComponentComponent } from './main-layout-component/main-layou
 import { FooterComponentComponent } from './footer-component/footer-component.component';
 import { SidebarComponentComponent } from './main-layout-component/sidebar-component/sidebar-component.component';
 import { MainContentComponentComponent } from './main-layout-component/main-content-component/main-content-component.component';
-import { UserInfoComponent } from './user-info/user-info.component';
-import { CreateUserComponent } from './create-user/create-user.component';
+import { UserInfoComponent } from './main-layout-component/main-content-component/user-info/user-info.component';
+import { CreateUserComponent } from './main-layout-component/main-content-component/create-user/create-user.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
@@ -18,6 +18,7 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import {UserState} from './user/store/user.state';
+import { LoginComponent } from './main-layout-component/main-content-component/login/login.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {UserState} from './user/store/user.state';
     UserInfoComponent,
     CreateUserComponent,
     FilterPipe,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

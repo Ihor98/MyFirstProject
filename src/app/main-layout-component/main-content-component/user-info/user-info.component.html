@@ -79,7 +79,7 @@
             [attr.data-target]="'#' + i"
             aria-expanded="true"
             [attr.aria-controls]="i"
-            (click)="user.adressToggle = !user.adressToggle"
+            (click)="user.adressToggle = !user.adressToggle; user.showAddAdress=false"
           >
             Adress info
           </button>
@@ -175,13 +175,13 @@
                       </button>
                       <button
                         class="btn btn-danger mr-1"
-                        (click)="deleteAdress(user, i,  j, user.id)"
+                        (click)="deleteAdress( i,  j, user.id)"
                       >
                         Delete
                       </button>
                       <button
                         class="btn btn-primary"
-                        (click)="createAdress(i)"
+                        (click)="user.showAddAdress = !user.showAddAdress"
                       >
                         Add
                       </button>
@@ -263,7 +263,7 @@
                   </tr>
                 </ng-container>
                 <tr *ngIf="user.showAddAdress" [formGroup]="newAdressForm">
-                  <td>
+                  <td width="15%">
                     <select
                       class="custom-select form-control"
                       formControlName="adressType"
@@ -273,21 +273,21 @@
                       <option value="Home Address">Home Address</option>
                     </select>
                   </td>
-                  <td>
+                  <td width="15%">
                     <input
                       type="text"
                       class="form-control"
                       formControlName="country"
                     />
                   </td>
-                  <td>
+                  <td width="15%">
                     <input
                       type="text"
                       class="form-control"
                       formControlName="city"
                     />
                   </td>
-                  <td>
+                  <td width="10%">
                     <input
                       type="text"
                       class="form-control"
@@ -304,10 +304,11 @@
                   <td>
                     <button
                       class="btn btn-outline-primary"
-                      (click)="addAdress(user, i, user.id, newAdressForm.value)"
+                      (click)="addAdress(i, user.id)"
                     >
                       Save
                     </button>
+                    <button class="btn btn-danger ml-3" (click)="user.showAddAdress = !user.showAddAdress">Cancel</button>
                   </td>
                 </tr>
               </tbody>

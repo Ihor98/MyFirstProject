@@ -5,6 +5,7 @@ import { AddUser, DeleteUser, GetUsers, UpdateUser } from './user.actions';
 import { UserService } from '../user.service';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import {Defaults} from '../defaults/defaults';
 
 export class UserStateModel {
   usersList: User[];
@@ -13,10 +14,7 @@ export class UserStateModel {
 
 @State<UserStateModel>({
   name: 'users',
-  defaults: {
-    usersList: null,
-    user: null,
-  },
+  defaults: Defaults.userState,
 })
 @Injectable()
 export class UserState {
@@ -38,7 +36,6 @@ export class UserState {
   ): Observable<User[]> {
     return this.userService.addUser(payload).pipe(
       tap((usersList) => {
-        console.log(usersList, 'tyt')
         patchState({ usersList });
       })
     );

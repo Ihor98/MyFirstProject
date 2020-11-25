@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Adress, User } from '../../../user/user.model';
+import { User } from '../../../user/user.model';
 import { UserService } from '../../../user/user.service';
 import { Select, Store } from '@ngxs/store';
-import { DeleteUser, GetUsers, UpdateUser } from '../../../user/store/user.actions';
-import { pluck } from 'rxjs/operators';
+import { DeleteUser, UpdateUser } from '../../../user/store/user.actions';
+import { AuthState } from '../login/auth/auth.state';
+import { Observable } from 'rxjs';
+import { UserState } from '../../../user/store/user.state';
 
 @Component({
   selector: 'app-user-info',
@@ -13,6 +15,8 @@ import { pluck } from 'rxjs/operators';
   styleUrls: ['./user-info.component.scss'],
 })
 export class UserInfoComponent implements OnInit {
+  @Select(AuthState.getCurrentUser) currentUser$: Observable<User>;
+  currentUser: User;
   searchForm: FormGroup;
   users: Array<User>;
   toggle = false;
@@ -31,6 +35,7 @@ export class UserInfoComponent implements OnInit {
   ngOnInit(): void {
     this.buildSearchForm();
     this.buildNewAdressForm();
+    this.currentUser$.subscribe((u) => (this.currentUser = u));
   }
 
   buildSearchForm(): void {
@@ -44,32 +49,27 @@ export class UserInfoComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.store
-      .dispatch(new GetUsers())
-      .pipe(pluck('users', 'usersList'))
-      .subscribe((resp) => {
-        this.users = resp;
-        this.filter(this.searchForm.value);
-        this.updatedUsersForm = this.fb.group({
-          updatedUserInfoArray: this.fb.array([]),
-        });
-        this.users.forEach((user, index) => {
-          user.showUserInfo = true;
-          user.adressToggle = false;
-          user.showAddAdress = false;
-          (this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).push(
-            this.buildUpdatedUserInfoForm(user)
-          );
-          user.formAdress.forEach((adress) => {
-            adress.showAdressInfo = false;
-            ((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray)
-              .at(index)
-              .get('formAdress') as FormArray).push(
-              this.buildAdressFormGroup(adress)
-            );
-          });
-        });
+    this.users = this.store.selectSnapshot(UserState.getUsers);
+    this.filter(this.searchForm.value);
+    this.updatedUsersForm = this.fb.group({
+      updatedUserInfoArray: this.fb.array([]),
+    });
+    this.users.forEach((user, index) => {
+      user.showUserInfo = true;
+      user.adressToggle = false;
+      user.showAddAdress = false;
+      (this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).push(
+        this.buildUpdatedUserInfoForm(user)
+      );
+      user.formAdress.forEach((adress) => {
+        adress.showAdressInfo = false;
+        ((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray)
+          .at(index)
+          .get('formAdress') as FormArray).push(
+          this.buildAdressFormGroup(adress)
+        );
       });
+    });
   }
 
   buildUpdatedUserInfoForm(user): FormGroup {
@@ -92,6 +92,7 @@ export class UserInfoComponent implements OnInit {
           Validators.minLength(10),
         ],
       ],
+      password: [user.password],
       formAdress: this.fb.array([]),
     });
   }
@@ -122,11 +123,13 @@ export class UserInfoComponent implements OnInit {
     this.getUsers();
   }
 
-  deleteAdress( i: number, j: number, id: number): void {
+  deleteAdress(i: number, j: number, id: number): void {
     ((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[
       i
     ].get('formAdress') as FormArray).removeAt(j);
-    const data =  (this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[i].value;
+    const data = (this.updatedUsersForm.get(
+      'updatedUserInfoArray'
+    ) as FormArray).controls[i].value;
     this.store.dispatch(new UpdateUser({ data, id }));
     this.getUsers();
     this.users[i].adressToggle = false;
@@ -174,8 +177,10 @@ export class UserInfoComponent implements OnInit {
   addAdress(i: number, id: number): void {
     ((this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[
       i
-      ].get('formAdress') as FormArray).push(this.newAdressForm);
-    const data = (this.updatedUsersForm.get('updatedUserInfoArray') as FormArray).controls[i].value;
+    ].get('formAdress') as FormArray).push(this.newAdressForm);
+    const data = (this.updatedUsersForm.get(
+      'updatedUserInfoArray'
+    ) as FormArray).controls[i].value;
     this.store.dispatch(new UpdateUser({ data, id }));
     this.getUsers();
     this.newAdressForm.reset();

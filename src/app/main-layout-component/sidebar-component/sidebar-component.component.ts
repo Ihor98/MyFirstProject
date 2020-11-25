@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar-component',
@@ -7,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponentComponent implements OnInit {
 
-  constructor() { }
+  constructor(public logServ: AuthService) { }
 
   ngOnInit(): void {
   }
-
 }

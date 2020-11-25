@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Action, State, StateContext } from '@ngxs/store';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { User } from '../user.model';
 import { AddUser, DeleteUser, GetUsers, UpdateUser } from './user.actions';
 import { UserService } from '../user.service';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import {Defaults} from '../defaults/defaults';
+import { Defaults } from '../defaults/defaults';
 
 export class UserStateModel {
   usersList: User[];
@@ -19,6 +19,11 @@ export class UserStateModel {
 @Injectable()
 export class UserState {
   constructor(private userService: UserService) {}
+
+  @Selector()
+  static getUsers({ usersList }: UserStateModel): User[] {
+    return usersList;
+  }
 
   @Action(GetUsers)
   getUsers({ patchState }: StateContext<UserStateModel>): Observable<User[]> {

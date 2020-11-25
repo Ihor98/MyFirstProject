@@ -19,6 +19,8 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import {UserState} from './user/store/user.state';
 import { LoginComponent } from './main-layout-component/main-content-component/login/login.component';
+import { AnswerPageComponent } from './main-layout-component/main-content-component/answer-page/answer-page.component';
+import {AuthState} from './main-layout-component/main-content-component/login/auth/auth.state';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { LoginComponent } from './main-layout-component/main-content-component/l
     CreateUserComponent,
     FilterPipe,
     LoginComponent,
+    AnswerPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,7 @@ import { LoginComponent } from './main-layout-component/main-content-component/l
     HttpClientModule,
     MatTableModule,
     NgxsModule.forRoot(
-      [UserState]
+      [UserState, AuthState]
     ),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot()

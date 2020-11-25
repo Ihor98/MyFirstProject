@@ -1,170 +1,71 @@
 {
   "profiles": [
     {
-      "firstname": "Vlad",
-      "lastname": "Musiy",
-      "username": "vlados",
-      "phone": "1234567890",
+      "firstname": "Ihor",
+      "lastname": "Nadiuk",
+      "username": "ihor987",
+      "phone": "0979009713",
+      "password": "1234567",
       "formAdress": [
         {
           "adressType": "Home Address",
           "country": "Ukraine",
-          "city": "Drogobych",
+          "city": "Drohobych",
           "postalCode": "82100",
-          "adress": "Shept"
+          "adress": "Sagaid"
+        },
+        {
+          "adressType": "Billing Address",
+          "country": "Ukraine",
+          "city": "Lviv",
+          "postalCode": "78900",
+          "adress": "Mayprivka"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "firstname": "Roman",
+      "lastname": "Gorishniak",
+      "username": "romjek97",
+      "phone": "0967896543",
+      "password": "1234567",
+      "formAdress": [
+        {
+          "adressType": "Home Address",
+          "country": "Ukraine",
+          "city": "Drohobych",
+          "postalCode": "82100",
+          "adress": "Sagaid"
         },
         {
           "adressType": "Billing Address",
           "country": "Poland",
-          "city": "Warsaw",
-          "postalCode": "34562",
-          "adress": "Str"
+          "city": "Lodz",
+          "postalCode": "12345",
+          "adress": "Street"
         }
       ],
       "id": 2
     },
     {
-      "firstname": "Mykhailo",
-      "lastname": "Lub",
-      "username": "mishaa",
-      "phone": "0939876543",
-      "formAdress": [
-        {
-          "adressType": "Home Address",
-          "country": "Ukraine",
-          "city": "Lviv",
-          "postalCode": "12908",
-          "adress": "Levandivka"
-        },
-        {
-          "adressType": "Billing Address",
-          "country": "Ukraine",
-          "city": "Lviv",
-          "postalCode": "23444",
-          "adress": "Okruzhna"
-        }
-      ],
-      "id": 4
-    },
-    {
-      "firstname": "Ira",
-      "lastname": "Haman",
-      "username": "hamanulia",
-      "phone": "0978007765",
-      "formAdress": [
-        {
-          "adressType": "Home Address",
-          "country": "Ukraine",
-          "city": "Popeli",
-          "postalCode": "34566",
-          "adress": "Franka 44",
-          "showAdressInfo": false
-        },
-        {
-          "adressType": "Shipment Address",
-          "adress": "Mayorivka",
-          "city": "Lviv",
-          "country": "Ukraine",
-          "postalCode": "23111"
-        }
-      ],
-      "id": 6,
-      "showUserInfo": true,
-      "adressToggle": true,
-      "showAddAdress": true
-    },
-    {
-      "firstname": "Nazar",
-      "lastname": "Myron",
-      "username": "nazarko23",
-      "phone": "0978007765",
-      "formAdress": [
-        {
-          "adressType": "Home Address",
-          "country": "Ukraine",
-          "city": "Lviv",
-          "postalCode": "33245",
-          "adress": "Levandivka"
-        },
-        {
-          "adressType": "Billing Address",
-          "country": "Ukraine",
-          "city": "Lviv",
-          "postalCode": "33245",
-          "adress": "Riasne"
-        }
-      ],
-      "id": 7
-    },
-    {
-      "firstname": "Ihor",
-      "lastname": "Nadiuk",
-      "username": "ihor",
-      "phone": "1234567890",
+      "firstname": "test",
+      "lastname": "test",
+      "username": "test",
+      "phone": "1231231231",
+      "mail": "test@mail.ru",
+      "password": "qwerty",
+      "check": "qwerty",
       "formAdress": [
         {
           "adressType": "Billing Address",
-          "country": "Ukraine",
-          "city": "Lviv",
-          "postalCode": "12345",
-          "adress": "Mayorivka",
-          "showAdressInfo": false
-        },
-        {
-          "adressType": "Shipment Address",
-          "adress": "Pivdenny",
-          "city": "Lviv",
-          "country": "Ukraine",
-          "postalCode": "11111"
+          "adress": "qwerqwer",
+          "city": "afsdf",
+          "country": "Albania",
+          "postalCode": "12345"
         }
       ],
-      "id": 8,
-      "showUserInfo": true,
-      "adressToggle": true,
-      "showAddAdress": true
-    },
-    {
-      "firstname": "Roman",
-      "lastname": "Gorishniak",
-      "username": "pes getman",
-      "phone": "0987654321",
-      "formAdress": [
-        {
-          "adressType": "Billing Address",
-          "country": "Poland",
-          "city": "Lodz",
-          "postalCode": "12345",
-          "adress": "Kolf"
-        }
-      ],
-      "id": 9
-    },
-    {
-      "firstname": "Roman",
-      "lastname": "Gorishniak",
-      "username": "gorishok",
-      "phone": "0987654321",
-      "formAdress": [
-        {
-          "adressType": "Billing Address",
-          "country": "Poland",
-          "city": "Lodz",
-          "postalCode": "12345",
-          "adress": "Kolf",
-          "showAdressInfo": false
-        },
-        {
-          "adressType": "Home Address",
-          "adress": "Sagaid",
-          "city": "Drogobych",
-          "country": "Ukraine",
-          "postalCode": "82100"
-        }
-      ],
-      "id": 10,
-      "showUserInfo": true,
-      "adressToggle": true,
-      "showAddAdress": true
+      "id": 3
     }
   ]
 }

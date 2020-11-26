@@ -8,6 +8,7 @@ import { Login } from './auth/auth.actions';
 import { UserState, UserStateModel } from '../../../user/store/user.state';
 import { Observable } from 'rxjs';
 import {AuthService} from '../../../services/auth.service';
+import {AuthState} from './auth/auth.state';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ import {AuthService} from '../../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   @Select(UserState.getUsers) users$: Observable<User[]>;
+  @Select(AuthState.getCurrentUser) currentUser$: Observable<User>;
   loginForm: FormGroup;
   users: User[];
   currentUser: User;
@@ -23,7 +25,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private store: Store,
     private router: Router,
-    private logServ: AuthService
+    public logServ: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
       password: [null, Validators.required],
     });
     this.store.dispatch(new GetUsers());
+    this.currentUser$.subscribe((u) => (this.currentUser = u));
   }
   login(): void {
     this.logServ.login();

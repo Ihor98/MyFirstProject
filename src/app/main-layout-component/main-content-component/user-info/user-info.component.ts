@@ -93,6 +93,7 @@ export class UserInfoComponent implements OnInit {
         ],
       ],
       password: [user.password],
+      mail: [user.mail],
       formAdress: this.fb.array([]),
     });
   }

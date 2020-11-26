@@ -1,4 +1,4 @@
-<div id="auth">
+<div id="auth" *ngIf="logServ.isLogin === false">
   <h4>Аuthorization</h4>
   <form [formGroup]="loginForm">
     <div class="form-group">
@@ -23,4 +23,12 @@
       Login
     </button>
   </form>
+</div>
+<div id="info" *ngIf="logServ.isLogin === true">
+  <h3>Your info</h3>
+  <p>First name: {{currentUser.firstname}}</p>
+  <p>Last name: {{currentUser.lastname}}</p>
+  <p>Username: {{currentUser.username}}</p>
+  <p>Phone: {{currentUser.phone}}</p>
+  <p>Mail: {{currentUser.mail}}</p>
 </div>

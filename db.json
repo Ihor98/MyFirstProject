@@ -28,44 +28,20 @@
       "firstname": "Roman",
       "lastname": "Gorishniak",
       "username": "romjek97",
-      "phone": "0967896543",
+      "phone": "1234567890",
+      "mail": "romjek97@gmail.com",
       "password": "1234567",
+      "check": "1234567",
       "formAdress": [
         {
           "adressType": "Home Address",
+          "adress": "Sagaid",
+          "city": "Drogobych",
           "country": "Ukraine",
-          "city": "Drohobych",
-          "postalCode": "82100",
-          "adress": "Sagaid"
-        },
-        {
-          "adressType": "Billing Address",
-          "country": "Poland",
-          "city": "Lodz",
-          "postalCode": "12345",
-          "adress": "Street"
+          "postalCode": "82100"
         }
       ],
-      "id": 2
-    },
-    {
-      "firstname": "test",
-      "lastname": "test",
-      "username": "test",
-      "phone": "1231231231",
-      "mail": "test@mail.ru",
-      "password": "qwerty",
-      "check": "qwerty",
-      "formAdress": [
-        {
-          "adressType": "Billing Address",
-          "adress": "qwerqwer",
-          "city": "afsdf",
-          "country": "Albania",
-          "postalCode": "12345"
-        }
-      ],
-      "id": 3
+      "id": 4
     }
   ]
 }
